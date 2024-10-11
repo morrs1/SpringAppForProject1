@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS Человек, Книга;
+DROP TABLE IF EXISTS Person, Book;
 
-CREATE TABLE Человек
+CREATE TABLE Person
 (
     person_id     SERIAL PRIMARY KEY,
     name          VARCHAR(100)                                    NOT NULL,
@@ -9,18 +9,18 @@ CREATE TABLE Человек
     UNIQUE (name, surname)
 );
 
-CREATE TABLE Книга
+CREATE TABLE Book
 (
     book_id   SERIAL PRIMARY KEY,
     name      VARCHAR(100) NOT NULL,
     author    VARCHAR(100) NOT NULL,
     year      INT CHECK (year BETWEEN 1700 AND 2024),
     person_id INT,
-    FOREIGN KEY (person_id) REFERENCES Человек (person_id),
+    FOREIGN KEY (person_id) REFERENCES Person (person_id),
     UNIQUE (name, author)
 );
 
-INSERT INTO Человек (name, surname, year_of_birth)
+INSERT INTO Person (name, surname, year_of_birth)
 VALUES ('Иван', 'Иванов', 1985),
        ('Петр', 'Петров', 1990),
        ('Светлана', 'Сидорова', 1978),
@@ -33,7 +33,7 @@ VALUES ('Иван', 'Иванов', 1985),
        ('Ольга', 'Ольгина', 2001);
 
 
-INSERT INTO Книга (name, author, year, person_id)
+INSERT INTO Book (name, author, year, person_id)
 VALUES
     ('Война и мир', 'Лев Толстой', 1869, 1),  -- Выдано Ивану Иванову
     ('1984', 'Джордж Оруэлл', 1949, 2),        -- Выдано Петру Петрову
