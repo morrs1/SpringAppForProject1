@@ -16,7 +16,7 @@ CREATE TABLE Book
     author    VARCHAR(100) NOT NULL,
     year      INT CHECK (year BETWEEN 1700 AND 2024),
     person_id INT,
-    FOREIGN KEY (person_id) REFERENCES Person (person_id),
+    FOREIGN KEY (person_id) REFERENCES Person (person_id) ON DELETE SET NULL,
     UNIQUE (name, author)
 );
 
