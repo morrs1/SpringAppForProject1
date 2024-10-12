@@ -41,6 +41,19 @@ public class BookDAO {
         );
     }
 
+    public void create(Book book) {
+        jdbcTemplate.update(
+                "INSERT INTO book (name, author, year) VALUES(?,?,?)",
+                book.getName(),
+                book.getAuthor(),
+                book.getYear()
+        );
+    }
+
+    public void release(int id) {
+        jdbcTemplate.update("UPDATE Book SET person_id=NULL WHERE book_id=?", id);
+    }
+
     public void delete(int id) {
         jdbcTemplate.update("DELETE FROM book WHERE book_id=?", id);
     }
