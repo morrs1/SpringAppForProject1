@@ -31,8 +31,21 @@ public class BookDAO {
         ).stream().findAny().orElse(null);
     }
 
+    public void update(int id, Book book) {
+        jdbcTemplate.update(
+                "UPDATE book SET name=?, author=?, year=? WHERE book_id=?",
+                book.getName(),
+                book.getAuthor(),
+                book.getYear(),
+                id
+        );
+    }
+
+    public void delete(int id) {
+        jdbcTemplate.update("DELETE FROM book WHERE book_id=?", id);
+    }
+
     public Optional<Person> getBookOwner(int id) {
-        // Выбираем все колонки таблицы Person из объединенной таблицы
         return jdbcTemplate.query("SELECT Person.* FROM Book JOIN Person ON Book.person_id = Person.person_id " +
                                 "WHERE Book.book_id = ?", preparedStatement -> preparedStatement.setInt(1, id),
                         new BeanPropertyRowMapper<>(Person.class))
