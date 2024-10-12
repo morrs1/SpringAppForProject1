@@ -23,6 +23,5 @@ public class Book {
     private String author;
     @Min(value = 1500, message = "Year must must be higher than 1500")
     @Max(value = 2024, message = "Year must must be lower than 2024")
-    @NotEmpty(message = "Year must be not empty")
     private int year;
 }
