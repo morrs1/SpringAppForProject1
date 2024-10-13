@@ -31,6 +31,15 @@ public class PersonDAO {
         ).stream().findAny().orElse(null);
     }
 
+    public void create(Person person) {
+        jdbcTemplate.update(
+                "INSERT INTO person(name, surname, year_of_birth)  VALUES(?,?,?)",
+                person.getName(),
+                person.getSurname(),
+                person.getYearOfBirth()
+        );
+    }
+
     public List<Book> getBooksByPersonId(int id) {
         return jdbcTemplate.query("SELECT * FROM book WHERE person_id=?", new BeanPropertyRowMapper<>(Book.class), id);
     }
